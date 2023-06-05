@@ -12,19 +12,14 @@
 
 #include "../include/minishell.h"
 
-void	commande_echo(char *first, char *word)
+void	commande_echo(char **word)
 {
-	int	i;
-
-	i = 0;
-	if (word == NULL)
+	if (word[0] == NULL)
 		return ;
-	while (first[i])
-		i++;
-	if (i == 4)
-		printf ("%s\n", word);
+	if (word[1] != NULL)
+		printf ("%s", word[0]);
 	else
-		printf ("%s", word);
+		printf ("%s\n", word[0]);
 }
 
 void	commande_pwd(void)
@@ -37,9 +32,9 @@ void	commande_pwd(void)
 		perror("PWD");
 }
 
-int	commande_cd(char *word)
+int	commande_cd(char **word)
 {
-	if (chdir(word) != 0)
+	if (chdir(word[0]) != 0)
 	{
 		perror("cd");
 		return (1);
